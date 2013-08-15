@@ -70,12 +70,24 @@ exports.init = function (grunt) {
     return new Error(msg);
   };
 
-  var makeOptions = exports.makeOptions = function(opts) {
+  /**
+   * Cleans options
+   *
+   * @param {Object} Format.
+   * @returns {Object}
+   */
+  var makeOptions = function(opts) {
     var options = _.clone(opts || {}, true);
 
     return options;
   };
 
+  /**
+   * Create a Knox client object
+   *
+   * @param {Object} Format.
+   * @returns {Object}
+   */
   var makeClient = function(options) {
     return knox.createClient(_.pick(options, [
       'region', 'endpoint', 'port', 'key', 'secret', 'access', 'bucket', 'secure', 'headers', 'style'
@@ -144,6 +156,7 @@ exports.init = function (grunt) {
 
               if (remoteHash === localHash) {
                 var msg = util.format(MSG_UPLOAD_SUCCESS, src, localHash);
+
                 cb(null, msg);
               }
               else {
