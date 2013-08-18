@@ -79,7 +79,7 @@ exports.init = function (grunt) {
   /**
    * Create an s3 client. Returns an Knox instance.
    *
-   * @param {Object} Format.
+   * @param {Object} options.
    * @returns {Object}
    */
   var makeClient = exports.makeClient = function(options) {
@@ -88,6 +88,12 @@ exports.init = function (grunt) {
     ]));
   };
 
+  /**
+   * Track a change to an asset on s3
+   *
+   * @param {String} path of changed asset.
+   * @returns {Object}
+   */
   var trackChanges = function(path) {
     var changes = grunt.config.get('s3.changed') || [];
     if (changes.indexOf(path) < 0 ) {
