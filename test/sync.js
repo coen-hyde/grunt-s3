@@ -12,7 +12,7 @@ var s3Config = grunt.config("s3")
   , config = common.config;
 
 module.exports = {
-  setUp: common.clean,
+  setUp: common.setup,
 
   testSync: function (test) {
     test.expect(1);

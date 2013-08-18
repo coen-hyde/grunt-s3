@@ -13,10 +13,8 @@ var s3Config = grunt.config("s3")
 module.exports = {
   setUp: function(cb) {
     async.series([
-      common.clean,
-      function(done) {
-        s3.upload(__dirname + '/files/a.txt', 'a.txt', common.config).done(done);
-      }
+      common.setup,
+      common.upload('a.txt')
     ], function() {
       cb();
     });

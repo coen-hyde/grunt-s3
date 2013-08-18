@@ -13,17 +13,15 @@ var hashFile = require('../tasks/lib/common').hashFile
 module.exports = {
   setUp: function(cb) {
     async.series([
-      common.clean,
-      function(done) {
-        s3.upload(__dirname + '/files/a.txt', 'a.txt', common.config).done(done);
-      }
+      common.setup,
+      common.upload('a.txt')
     ], function() {
       cb();
     });
   },
 
   testDelete: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     var dest = 'a.txt';
     var client = s3.makeClient(config);
@@ -45,6 +43,7 @@ module.exports = {
         client.getFile(dest, function (err, res) {
           test.ifError(err);
           test.equal(res.statusCode, 404, 'File does not exist.');
+          test.deepEqual(grunt.config('s3.changed'), ['a.txt']);
           next();
         }, 500);
       }

@@ -36,7 +36,7 @@ var makeMockTask = function (taskDef) {
 };
 
 module.exports = {
-  setUp: common.clean,
+  setUp: common.setup,
   run: function (test) {
     var taskDef = new _.Deferred();
     var asyncCalls = 0;

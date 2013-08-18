@@ -12,10 +12,10 @@ var s3Config = grunt.config("s3")
   , config = common.config;
 
 module.exports = {
-  setUp: common.clean,
+  setUp: common.setup,
 
   testUpload : function (test) {
-    test.expect(2);
+    test.expect(3);
 
     async.series([
       function (cb) {
@@ -25,6 +25,7 @@ module.exports = {
         s3.upload(src, 'a.txt', config)
           .done(function () {
             test.ok(hashFile(src) === hashFile(dest), 'File uploaded successfully.');
+            test.deepEqual(grunt.config('s3.changed'), ['a.txt']);
           })
           .always(function () {
             cb(null);

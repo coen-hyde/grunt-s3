@@ -17,7 +17,8 @@ module.exports = function (grunt) {
         port: 1337,
         secure: false,
         access: 'public-read',
-        style: 'path'
+        style: 'path',
+        trackChanges: true
       },
       test: {
         options: {}

@@ -88,6 +88,14 @@ exports.init = function (grunt) {
     ]));
   };
 
+  var trackChanges = function(path) {
+    var changes = grunt.config.get('s3.changed') || [];
+    if (changes.indexOf(path) < 0 ) {
+      changes.push(path);
+    }
+    grunt.config.set('s3.changed', changes);
+  };
+
   /**
    * Publishes the local file at src to the s3 dest.
    *
@@ -150,6 +158,9 @@ exports.init = function (grunt) {
 
               if (remoteHash === localHash) {
                 var msg = util.format(MSG_UPLOAD_SUCCESS, src, localHash);
+                if (options.trackChanges) {
+                  trackChanges(dest);
+                }
                 cb(null, msg);
               }
               else {
@@ -361,6 +372,9 @@ exports.init = function (grunt) {
         dfd.reject(makeError(MSG_ERR_DELETE, src, err || res.statusCode));
       }
       else {
+        if (options.trackChanges) {
+          trackChanges(src);
+        }
         dfd.resolve(util.format(MSG_DELETE_SUCCESS, src));
       }
     });
