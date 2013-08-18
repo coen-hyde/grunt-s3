@@ -58,6 +58,7 @@ the above values may also be overriden.
 * **sync** - (*array*) An array of ojects, each oject containing a `src` and `dest`. Default behavior is to
 only upload new files (that don't exist). Adding `verify:true` forces an MD5 hash and Modified time check prior
 to overwriting the server files.
+* **trackChanges** - (*boolean*) Default `false`. If true, an array of changed assets can be retrieved from `grunt.config('s3.changed')`
 * **debug** - (*boolean*) If true, no transfers with S3 will occur, will print all actions for review by user
 
 ### Example
